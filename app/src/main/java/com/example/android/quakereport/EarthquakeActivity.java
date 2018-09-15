@@ -16,12 +16,15 @@
 package com.example.android.quakereport;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -82,8 +85,30 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
             loadingIndicator.setVisibility(View.GONE);
             tvEmptyView.setText(R.string.noInternetConnection);
         }
+    }
 
+    @Override
+    // This method initialize the contents of the Activity's options main.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        /*
+        To determine which item was selected and what action to take, call getItemId,
+        which returns the unique ID for the menu item (defined by the android:id attribute
+        in the menu resource).
+         */
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -110,7 +135,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         } else {
             tvEmptyView.setVisibility(TextView.VISIBLE);
             Log.i("Earthqueake ACtivity", "Loader Error.");
-            Toast.makeText(appContext, "HTTP Data Request Failed!", Toast.LENGTH_LONG);
+            Toast.makeText(appContext, "HTTP Data Request Failed!", Toast.LENGTH_LONG).show();
         }
     }
 
