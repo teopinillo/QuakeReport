@@ -1,7 +1,7 @@
 package com.example.android.quakereport;
 
 //import android.content.AsyncTaskLoader;
-import android.support.v4.app.LoaderManager;
+
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
@@ -23,13 +23,14 @@ public class EarthquakeLoader extends AsyncTaskLoader<List<Earthquake>> {
         forceLoad();
     }
 
+    //TODO: url is malformed,items are repeated twice
     public List<Earthquake> loadInBackground (){
         if (url==null ) return null;
         HttpHandler httpHandler = new HttpHandler();
         // Making a request to url and getting response
-        Log.i ("EarthqualeLoader","url: "+url.substring(0,30));
+        Log.i("EarthqualeLoader", "url: " + url);
         String jsonStr = httpHandler.makeServiceCall(url);
-        Log.i ("EarthqualeLoader","jsonStr: "+jsonStr.substring(0,30));
+        Log.i("EarthqualeLoader", "jsonStr: " + jsonStr);
         return QueryUtils.extractEarthquakes(jsonStr);
     }
 
