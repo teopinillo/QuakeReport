@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
@@ -20,7 +19,7 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
     private Context context;
     private String mag;
 
-    public EarthquakeAdapter(Context context, List<Earthquake> earthquakes, int color) {
+    EarthquakeAdapter(Context context, List<Earthquake> earthquakes, int color) {
         super(context, 0, earthquakes);
         this.context = context;
         this.color=color;
@@ -40,20 +39,20 @@ public class EarthquakeAdapter extends ArrayAdapter<Earthquake> {
         final Earthquake earthquake = getItem(position);
         mag = earthquake.getMag();
 
-        TextView magTextView = (TextView) listItemView.findViewById(R.id.tvMag);
+        TextView magTextView = listItemView.findViewById(R.id.tvMag);
         magTextView.setText(mag);
 
-        TextView dateTextView = (TextView) listItemView.findViewById(R.id.tvDate);
+        TextView dateTextView = listItemView.findViewById(R.id.tvDate);
         dateTextView.setText(earthquake.getDate());
 
-        TextView timeTextView = (TextView) listItemView.findViewById(R.id.tvTime);
+        TextView timeTextView = listItemView.findViewById(R.id.tvTime);
         timeTextView.setText(earthquake.getTime());
 
-        TextView locationTextView = (TextView) listItemView.findViewById(R.id.tvLocation);
+        TextView locationTextView = listItemView.findViewById(R.id.tvLocation);
         locationTextView.setText(earthquake.getPrimaryLocation());
         //locationTextView.setText(earthquake.getUrl());
 
-        TextView locationOffTextView = (TextView) listItemView.findViewById(R.id.tvLocationOff);
+        TextView locationOffTextView = listItemView.findViewById(R.id.tvLocationOff);
         locationOffTextView.setText(earthquake.getLocationOff());
 
         // Set the proper background color on the magnitude circle.

@@ -50,10 +50,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     /**
      * URL for earthquake data from the USGS dataset
      */
-
-
-    private String USGS_REQUEST_URL =
-            "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=6&limit=10";
+    private String USGS_REQUEST_URL = "https://earthquake.usgs.gov/fdsnws/event/1/query";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +113,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
     @Override
     public EarthquakeLoader onCreateLoader(int id, Bundle bundle) {
-        Log.i("Earthqueake ACtivity", "onCreateLoeader running...");
+        Log.i("MyApp", "[EarthquakeActivity.onCreateLoader] running...");
 
         //get the settings
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -149,28 +146,25 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     public void onLoadFinished(android.support.v4.content.Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
 
         loadingIndicator.setVisibility(View.GONE);
-
         // Set empty state text to display "No earthquakes found."
         tvEmptyView.setText("No earthquakes found.");
 
-        Log.i("Earthqueake ACtivity", "onLoadFinished running...");
+        Log.i("MyApp", "[EarthquakeActivity.onLoadFinished] running...");
         if (earthquakes != null && !earthquakes.isEmpty()) {
-            // Clear the adapter of previous earthquake data
-            //adapter.clear();
             adapter = new EarthquakeAdapter(appContext, earthquakes, 5);
             earthquakeListView.setAdapter(adapter);
-            Log.i("Earthqueake ACtivity", "Adapter Set.");
+            Log.i("MyApp", "[EarthquakeActivity.onLoadFinished] Adapter Set.");
         } else {
             tvEmptyView.setVisibility(TextView.VISIBLE);
-            Log.i("Earthqueake ACtivity", "Loader Error.");
-            Toast.makeText(appContext, "HTTP Data Request Failed!", Toast.LENGTH_LONG).show();
+            Log.i("MyApp", "[EarthquakeActivity.onLoadFinished] Loader Error.");
+            Toast.makeText(appContext, "No Earthquakes Found!", Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<List<Earthquake>> loader) {
-        Log.i("Earthqueake ACtivity", "Loader Reset.");
-        adapter.clear();
+        Log.i("MyApp", "[EarthquakeActivity.onLoaderReset] running...");
+        if (adapter != null) adapter.clear();
     }
 
 
